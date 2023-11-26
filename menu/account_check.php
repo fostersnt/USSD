@@ -2,5 +2,5 @@
 
 function page_1()
 {
-    return "Dear customer,\nYou are welcome to the self registration service.\n1. Check Account Balance\n2.Close account";
+    return "Dear customer,<br>You are welcome to the self registration service.<br>1. Check Account Balance<br>2. Close account";
 }
