@@ -14,7 +14,7 @@ switch ($code) {
         echo printName("Foster Amponsah Asante");
         break;
     case '419':
-        echo $app_secrets["apiKey"];
+        echo $app_secrets["rapidAPI"]['X-RapidAPI-Key'];
         break;
     case '41':
         echo $accounts_page_1;
