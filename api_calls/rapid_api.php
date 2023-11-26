@@ -14,10 +14,11 @@ $curl = curl_init($url);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
-$response = json_decode(curl_exec($curl), true);
+$response = curl_exec($curl);
 
 if (curl_errno($curl)) {
     echo "Error message: " . curl_error($curl);
 } else {
-    echo $response['message'];
+    $output = json_decode($response, true);
+    echo $output['message'];
 }
