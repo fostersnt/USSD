@@ -2,9 +2,10 @@
 try {
     require_once './classes/Database.php';
     require_once './classes/User.php';
-    require_once './classes/Session.php';
+    require_once './classes/Session.ph';
 } catch (\Throwable $th) {
-    echo $th->getMessage();
+    echo "ERROR MESSAGE: " . $th->getMessage() . "<br>LINE NUMBER: " . $th->getLine();
+    // echo "ERROR MESSAGE: " . $th->getMessage() . "\nLINE NUMBER: " . $th->getLine();
 }
 
 Session::start();
