@@ -5,7 +5,7 @@ class Database {
     private $password = "";
     private $database = "ussd_db";
 
-    protected $conn;
+    public $conn;
 
     public function __construct() {
         $this->conn = new mysqli($this->host, $this->username, $this->password);

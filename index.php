@@ -2,7 +2,7 @@
 try {
     require_once './classes/Database.php';
     require_once './classes/User.php';
-    require_once './classes/Session.ph';
+    require_once './classes/Session.php';
 } catch (\Throwable $th) {
     echo "ERROR MESSAGE: " . $th->getMessage() . "<br>LINE NUMBER: " . $th->getLine();
     // echo "ERROR MESSAGE: " . $th->getMessage() . "\nLINE NUMBER: " . $th->getLine();
@@ -16,8 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     $user = new User();
+    // $db = new Database();
     try {
         $user->register($username, $password);
+        // $a = "Fasante";
+        // $b = "my password";
+        // $us = $db->conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+        // $us->bind_param("ss", $a, $b);
+        // $us->execute();
+        // $us->close();
+
         echo "User has been registered successfully";
     } catch (\Throwable $th) {
         echo $th->getMessage();
