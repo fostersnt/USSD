@@ -15,4 +15,14 @@ class Session {
     public static function destroy() {
         session_destroy();
     }
+
+    public static function proceed_ussd($text)
+    {
+        return "CON" . $text;
+    }
+
+    public static function stop_ussd($text)
+    {
+        return "END" . $text;
+    }
 }
