@@ -1,27 +1,52 @@
 <?php
-include('./functions.php');
-include('./secrets.php');
-include('./menu/account_check.php');
-include('./menu/account_register.php');
-include('./api_calls/rapid_api.php');
+try {
+    require_once './classes/Database.php';
+    require_once './classes/User.php';
+    require_once './classes/Session.php';
+} catch (\Throwable $th) {
+    echo $th->getMessage();
+}
 
-$app_secrets = getSecrets();
-$accounts_page_1 = page_1();
+Session::start();
 
-$code = "419";
+// Handle registration logic if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-// switch ($code) {
-//     case '123':
-//         echo printName("Foster Amponsah Asante");
-//         break;
-//     case '419':
-//         echo $app_secrets["rapidAPI"]['X-RapidAPI-Key'];
-//         break;
-//     case '41':
-//         echo $accounts_page_1;
-//         break;
-//     default:
-//         echo "Your input couldn't match any item";
-//         break;
-// }
+    $user = new User();
+    try {
+        $user->register($username, $password);
+        echo "User has been registered successfully";
+    } catch (\Throwable $th) {
+        echo $th->getMessage();
+    }
 
+    // Set additional session data or redirect as needed
+}
+
+// HTML form for registration
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USSD Registration</title>
+</head>
+
+<body>
+    <h2>User Registration</h2>
+    <form method="post" action="">
+        <!-- Input fields for username and password -->
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <!-- Submit button -->
+        <button type="submit">Register</button>
+    </form>
+</body>
+
+</html>

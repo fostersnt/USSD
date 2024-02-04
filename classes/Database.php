@@ -1,8 +1,8 @@
 <?php
 class Database {
-    private $host = "your_host";
-    private $username = "your_username";
-    private $password = "your_password";
+    private $host = "localhost";
+    private $username = "root";
+    private $password = "";
     private $database = "ussd_db";
 
     protected $conn;
