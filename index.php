@@ -3,6 +3,7 @@ try {
     require_once './classes/Database.php';
     require_once './classes/User.php';
     require_once './classes/Session.php';
+    require_once './classes/Validations.php';
 } catch (\Throwable $th) {
     echo "ERROR MESSAGE: " . $th->getMessage() . "<br>LINE NUMBER: " . $th->getLine();
     // echo "ERROR MESSAGE: " . $th->getMessage() . "\nLINE NUMBER: " . $th->getLine();
@@ -12,13 +13,18 @@ Session::start();
 
 // Handle registration logic if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = Validations::sanitize_input($_POST['username']);
+    $password = Validations::sanitize_input($_POST['password']);
 
+
+    if (strlen($username) < 1) {
+        echo "<span style='color:red'>Invalid username</span><br>";
+    }
     $user = new User();
     // $db = new Database();
     try {
-        $user->register($username, $password);
+        if (strlen($username) > 0 && strlen($password) > 0) {
+            $user->register($username, $password);
         // $a = "Fasante";
         // $b = "my password";
         // $us = $db->conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
@@ -27,6 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // $us->close();
 
         echo "User has been registered successfully";
+        } else {
+            echo "<span style='color:red;'>Ensure you have entered valid data for both username and password</span>";
+        }
+        
     } catch (\Throwable $th) {
         echo $th->getMessage();
     }
@@ -50,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <h2>User Registration</h2>
     <form method="post" action="">
         <!-- Input fields for username and password -->
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
 
         <!-- Submit button -->
         <button type="submit">Register</button>
