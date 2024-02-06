@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // $db = new Database();
     try {
         if (strlen($username) > 0 && strlen($password) > 0) {
+            
             $user->register($username, $password);
         // $a = "Fasante";
         // $b = "my password";
