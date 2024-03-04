@@ -24,13 +24,16 @@ try {
 
     function handleUserInput($userInput, $currentScreen)
     {
+        $continue = 'CON';
+        $terminate = 'END';
+
         $responseScreens = new Response();
 
         switch ($currentScreen) {
             case 1:
                 switch ($userInput) {
                     case 1:
-                        echo $responseScreens->welcomeScreen('CON');
+                        echo $responseScreens->welcomeScreen($continue);
                         break;
 
                     default:
