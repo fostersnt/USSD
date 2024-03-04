@@ -22,8 +22,6 @@ try {
 
     $accounts_page_1 = page_1();
 
-    $code = "419";
-
     function handleUserInput($userInput, $currentScreen)
     {
         $responseScreens = new Response();
@@ -65,21 +63,24 @@ try {
         }
     }
 
-    // switch ($code) {
-    //     case '123':
-    //         echo printName("Foster Amponsah Asante");
-    //         break;
-    //     case '419':
-    //         // echo $app_secrets["rapidAPI"]['X-RapidAPI-Key'];
-    //         echo $responseScreens->welcomeScreen('CON');
-    //         break;
-    //     case '41':
-    //         echo $accounts_page_1;
-    //         break;
-    //     default:
-    //         echo "Your input couldn't match any item";
-    //         break;
-    // }
+    /*
+    $code = "419";
+    switch ($code) {
+        case '123':
+            echo printName("Foster Amponsah Asante");
+            break;
+        case '419':
+            // echo $app_secrets["rapidAPI"]['X-RapidAPI-Key'];
+            echo $responseScreens->welcomeScreen('CON');
+            break;
+        case '41':
+            echo $accounts_page_1;
+            break;
+        default:
+            echo "Your input couldn't match any item";
+            break;
+    }
+    */
 } catch (\Throwable $th) {
     echo '<span style="color: red;">' . $th->getMessage() . '</span>';
 }
