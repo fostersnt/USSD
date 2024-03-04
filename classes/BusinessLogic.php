@@ -11,9 +11,9 @@ class BusinessLogic
 
         $responseScreens = new Response();
 
-        switch ($current_screen) {
+        switch ($input) {
             case 1:
-                switch ($input) {
+                switch ($current_screen) {
                     case 1:
                         return $responseScreens->welcomeScreen($continue);
                         break;
@@ -23,7 +23,7 @@ class BusinessLogic
                         break;
                 }
             case 2:
-                switch ($input) {
+                switch ($current_screen) {
                     case 1:
                         return $responseScreens->welcomeScreen('CON');
                         break;
@@ -33,7 +33,7 @@ class BusinessLogic
                         break;
                 }
             case 3:
-                switch ($input) {
+                switch ($current_screen) {
                     case 1:
                         echo $responseScreens->welcomeScreen('CON');
                         break;
