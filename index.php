@@ -27,14 +27,10 @@ try {
 
     if ($data['status'] == 'success') {
         $_SESSION['screen'] = $data['screen'] + 1;
-        // $_SESSION['screen'] = $_SESSION['screen'] != 1 ? $data['screen'] + 1 : $data['screen'];
     };
 
-    // $_SESSION['current_screen'] = $newScreen + 1;
     echo 'RESPONSE: ' . $data['response'] . '<br>USER INPUT: ' .
         $data['input'] . '<br>CURRENT SCREEN: ' . $_SESSION['screen'];
-    // $val = new Validation();
-    // echo $val->validateName("Foster Amponsah Asante");
 } catch (\Throwable $th) {
     echo '<span style="color: red;">' . $th->getMessage() . ' LINE NUMBER: ' . $th->getLine() . '</span>';
 }
@@ -42,5 +38,3 @@ try {
 if ($data['destroy_session']) {
     session_destroy();
 }
-
-// session_destroy();
