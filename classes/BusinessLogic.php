@@ -3,6 +3,14 @@ require_once('./classes/Response.php');
 
 class BusinessLogic
 {
+    public static function error_feedback(string $action, int $screen, Response $response)
+    {
+        return [
+            'response' => $response->invalidInput($action),
+            'screen' => $screen,
+            'status' => 'failed'
+        ];
+    }
     //METHOD TO HANDLE USER INPUTS
     public function handleUserInput($input, $current_screen)
     {
@@ -12,14 +20,30 @@ class BusinessLogic
         $responseScreens = new Response();
 
         switch ($input) {
+            case 0:
+                switch ($current_screen) {
+                    case 0:
+                        return [
+                            'response' => $responseScreens->welcomeScreen($continue),
+                            'screen' => $current_screen,
+                            'status' => 'success'
+                        ];
+                        break;
+                    default:
+                        return BusinessLogic::error_feedback($terminate, $current_screen, $responseScreens);
+                        break;
+                }
             case 1:
                 switch ($current_screen) {
                     case 1:
-                        return $responseScreens->welcomeScreen($continue);
+                        return [
+                            'response' => $responseScreens->userRegistrationScreen($continue),
+                            'screen' => $current_screen,
+                            'status' => 'success'
+                        ];
                         break;
-
                     default:
-                        # code...
+                        return BusinessLogic::error_feedback($terminate, $current_screen, $responseScreens);
                         break;
                 }
             case 2:
@@ -29,7 +53,7 @@ class BusinessLogic
                         break;
 
                     default:
-                        # code...
+                        return BusinessLogic::error_feedback($terminate, $current_screen, $responseScreens);
                         break;
                 }
             case 3:
@@ -43,7 +67,7 @@ class BusinessLogic
                         break;
                 }
             default:
-                return $responseScreens->invalidInput($terminate);
+                return BusinessLogic::error_feedback($terminate, $current_screen, $responseScreens);
                 break;
         }
     }

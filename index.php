@@ -8,8 +8,8 @@ require_once('./api_calls/rapid_api.php');
 
 try {
     //GETTING THE REQUIRED DATA
-    $msisdn = $_GET['msisdn'] ?? null;
-    $currentScreen = $_GET['screen'] ?? null;
+    $msisdn = $_GET['msisdn'] ?? '0';
+    $currentScreen = $_GET['screen'] ?? '0';
     $userInput = $_GET['text'] ?? null;
     $session_id = $_GET['session_id'] ?? null;
     $businessLogic = new BusinessLogic();
@@ -21,7 +21,14 @@ try {
         $_SESSION['session_id'] = $session_id;
     }
 
-    echo $businessLogic->handleUserInput($userInput, $currentScreen);
+    $data = $businessLogic->handleUserInput($userInput, $currentScreen);
+
+    if ($data['status'] == 'success') {
+        $currentScreen = $data['screen'] + 1;
+    };
+
+    // $_SESSION['current_screen'] = $newScreen + 1;
+    echo $data['response']; // . ' CURRENT SCREEN: ' . $currentScreen;
 } catch (\Throwable $th) {
-    echo '<span style="color: red;">' . $th->getMessage() . '</span>';
+    echo '<span style="color: red;">' . $th->getMessage() . ' LINE NUMBER: ' . $th->getLine() . '</span>';
 }

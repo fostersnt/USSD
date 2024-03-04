@@ -5,7 +5,7 @@ class Response
     public function welcomeScreen($action)
     {
         $action = strtoupper($action);
-        return "$action Hello, you are welcome to this USSD screen.Select an option to proceed\n
+        return "$action Welcom to GWO SEVO USSD,\nSelect an option to proceed\n
         1. Request Transaction Details\n
         2. View Personal info";
     }
@@ -32,6 +32,6 @@ class Response
 
     public function invalidInput($action)
     {
-        return "$action Sorry, the value you entered does not fall within the options provided.";
+        return "$action Invalid input provided.";
     }
 }
