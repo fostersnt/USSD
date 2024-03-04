@@ -15,30 +15,30 @@ class BusinessLogic
     }
 
     //METHOD TO HANDLE USER INPUTS
-    public function handleUserInput($input, $screen)
+    public function handleUserInput($input = 0, $screen = 1)
     {
         $continue = 'CON';
         $terminate = 'END';
 
         $responseScreens = new Response();
 
-        switch ($input) {
-            case 0:
-                switch ($screen) {
+        switch ($screen) {
+            case 1:
+                switch ($input) {
                     case 0:
                         return [
                             'response' => $responseScreens->welcomeScreen($continue),
                             'screen' => $screen,
                             'status' => 'success',
-                            'input' => $input
+                            'input' => $input,
                         ];
                         break;
                     default:
                         return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
                         break;
                 }
-            case 1:
-                switch ($screen) {
+            case 2:
+                switch ($input) {
                     case 1:
                         return [
                             'response' => $responseScreens->userRegistrationScreen($continue),
@@ -49,8 +49,8 @@ class BusinessLogic
                         break;
                     case 2:
                         return [
-                            'response' => $responseScreens->userRegistrationScreen($continue),
-                            'screen' => $screen,
+                            'response' => $responseScreens->accountInfoScreen($terminate),
+                            'screen' => 1,
                             'status' => 'success',
                             'input' => $input
                         ];
@@ -59,10 +59,10 @@ class BusinessLogic
                         return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
                         break;
                 }
-            case 2:
-                switch ($screen) {
+            case 3:
+                switch ($input) {
                     case 1:
-                        return $responseScreens->welcomeScreen('CON');
+                        return $responseScreens->individualRegistrationScreen_Name($continue);
                         break;
 
                     default:
@@ -70,13 +70,13 @@ class BusinessLogic
                         break;
                 }
             case 3:
-                switch ($screen) {
+                switch ($input) {
                     case 1:
                         echo $responseScreens->welcomeScreen('CON');
                         break;
 
                     default:
-                        # code...
+                        return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
                         break;
                 }
             default:

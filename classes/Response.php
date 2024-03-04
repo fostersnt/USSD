@@ -6,10 +6,11 @@ class Response
     {
         $action = strtoupper($action);
         return "$action Welcom to GWO SEVO USSD,\nSelect an option to proceed\n
-        1. Request Transaction Details\n
-        2. View Personal info";
+        1. User Registration\n
+        2. View Account Details";
     }
 
+    //USER REGISTRATION
     public function userRegistrationScreen($action)
     {
         $action = strtoupper($action);
@@ -28,6 +29,27 @@ class Response
     {
         $action = strtoupper($action);
         return "$action Enter your age:";
+    }
+
+    public function groupRegistrationScreen_Name($action)
+    {
+        $action = strtoupper($action);
+        return "$action Enter group name:";
+    }
+
+    public function groupRegistrationScreen_Age($action)
+    {
+        $action = strtoupper($action);
+        return "$action Enter group average age:";
+    }
+
+    //ACCOUNT DETAILS INFO
+    public function accountInfoScreen($action)
+    {
+        $action = strtoupper($action);
+        return "$action Dear user, your account info is given below:\n
+        Name: John\n
+        DoB: 1998-03-21";
     }
 
     public function invalidInput($action)
