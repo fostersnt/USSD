@@ -1,72 +1,89 @@
 <?php
+// include('./functions.php');
+require_once('./classes/Response.php');
+require_once('./classes/Validation.php');
+require_once('./menu/account_check.php');
+require_once('./menu/account_register.php');
+require_once('./api_calls/rapid_api.php');
+
 try {
-    require_once './classes/Database.php';
-    require_once './classes/User.php';
-    require_once './classes/Session.php';
-    require_once './classes/Validations.php';
-} catch (\Throwable $th) {
-    echo "ERROR MESSAGE: " . $th->getMessage() . "<br>LINE NUMBER: " . $th->getLine();
-    // echo "ERROR MESSAGE: " . $th->getMessage() . "\nLINE NUMBER: " . $th->getLine();
-}
+    //GETTING THE REQUIRED DATA
+    $msisdn = $_GET['msisdn'] ?? null;
+    $currentScreen = $_GET['screen'] ?? null;
+    $userInput = $_GET['text'] ?? null;
+    $session_id = $_GET['session_id'] ?? null;
 
-Session::start();
-
-// Handle registration logic if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = Validations::sanitize_input($_POST['username']);
-    $password = Validations::sanitize_input($_POST['password']);
-
-
-    if (strlen($username) < 1) {
-        echo "<span style='color:red'>Invalid username</span><br>";
+    if (isset($currentScreen)) {
+        $_SESSION['current_screen'] = $currentScreen;
     }
-    $user = new User();
-    // $db = new Database();
-    try {
-        if (strlen($username) > 0 && strlen($password) > 0) {
-            
-            $user->register($username, $password);
-        // $a = "Fasante";
-        // $b = "my password";
-        // $us = $db->conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-        // $us->bind_param("ss", $a, $b);
-        // $us->execute();
-        // $us->close();
+    if (isset($session_id)) {
+        $_SESSION['session_id'] = $session_id;
+    }
 
-        echo "User has been registered successfully";
-        } else {
-            echo "<span style='color:red;'>Ensure you have entered valid data for both username and password</span>";
+    $accounts_page_1 = page_1();
+
+    function handleUserInput($userInput, $currentScreen)
+    {
+        $continue = 'CON';
+        $terminate = 'END';
+
+        $responseScreens = new Response();
+
+        switch ($currentScreen) {
+            case 1:
+                switch ($userInput) {
+                    case 1:
+                        echo $responseScreens->welcomeScreen($continue);
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+            case 2:
+                switch ($userInput) {
+                    case 1:
+                        echo $responseScreens->welcomeScreen('CON');
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+            case 3:
+                switch ($userInput) {
+                    case 1:
+                        echo $responseScreens->welcomeScreen('CON');
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+            default:
+                # code...
+                break;
         }
-        
-    } catch (\Throwable $th) {
-        echo $th->getMessage();
     }
 
-    // Set additional session data or redirect as needed
+    /*
+    $code = "419";
+    switch ($code) {
+        case '123':
+            echo printName("Foster Amponsah Asante");
+            break;
+        case '419':
+            // echo $app_secrets["rapidAPI"]['X-RapidAPI-Key'];
+            echo $responseScreens->welcomeScreen('CON');
+            break;
+        case '41':
+            echo $accounts_page_1;
+            break;
+        default:
+            echo "Your input couldn't match any item";
+            break;
+    }
+    */
+} catch (\Throwable $th) {
+    echo '<span style="color: red;">' . $th->getMessage() . '</span>';
 }
-
-// HTML form for registration
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USSD Registration</title>
-</head>
-
-<body>
-    <h2>User Registration</h2>
-    <form method="post" action="">
-        <!-- Input fields for username and password -->
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-
-        <!-- Submit button -->
-        <button type="submit">Register</button>
-    </form>
-</body>
-
-</html>
