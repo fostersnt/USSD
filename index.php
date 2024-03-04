@@ -9,11 +9,16 @@ require_once('./api_calls/rapid_api.php');
 try {
     //GETTING THE REQUIRED DATA
     $msisdn = $_GET['msisdn'] ?? null;
-    $currentScreen = $_GET['current_screen'] ?? null;
+    $currentScreen = $_GET['screen'] ?? null;
     $userInput = $_GET['text'] ?? null;
     $session_id = $_GET['session_id'] ?? null;
 
-    $responseScreens = new Response();
+    if (isset($currentScreen)) {
+        $_SESSION['current_screen'] = $currentScreen;
+    }
+    if (isset($session_id)) {
+        $_SESSION['session_id'] = $session_id;
+    }
 
     $accounts_page_1 = page_1();
 
@@ -21,11 +26,39 @@ try {
 
     function handleUserInput($userInput, $currentScreen)
     {
-        switch ($currentScreen) {
-            case 'value':
-                # code...
-                break;
+        $responseScreens = new Response();
 
+        switch ($currentScreen) {
+            case 1:
+                switch ($userInput) {
+                    case 1:
+                        echo $responseScreens->welcomeScreen('CON');
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+            case 2:
+                switch ($userInput) {
+                    case 1:
+                        echo $responseScreens->welcomeScreen('CON');
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+            case 3:
+                switch ($userInput) {
+                    case 1:
+                        echo $responseScreens->welcomeScreen('CON');
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
             default:
                 # code...
                 break;
