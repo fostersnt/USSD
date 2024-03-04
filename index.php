@@ -1,5 +1,6 @@
 <?php
 // include('./functions.php');
+require_once('./classes/BusinessLogic.php');
 require_once('./classes/Validation.php');
 require_once('./menu/account_check.php');
 require_once('./menu/account_register.php');
@@ -11,6 +12,7 @@ try {
     $currentScreen = $_GET['screen'] ?? null;
     $userInput = $_GET['text'] ?? null;
     $session_id = $_GET['session_id'] ?? null;
+    $businessLogic = new BusinessLogic();
 
     if (isset($currentScreen)) {
         $_SESSION['current_screen'] = $currentScreen;
@@ -18,6 +20,8 @@ try {
     if (isset($session_id)) {
         $_SESSION['session_id'] = $session_id;
     }
+
+    echo $businessLogic->handleUserInput($userInput, $currentScreen);
 } catch (\Throwable $th) {
     echo '<span style="color: red;">' . $th->getMessage() . '</span>';
 }

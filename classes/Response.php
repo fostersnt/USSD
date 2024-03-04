@@ -32,6 +32,6 @@ class Response
 
     public function invalidInput($action)
     {
-        return "$action Sorry, the value you entered does fall within the options provided.";
+        return "$action Sorry, the value you entered does not fall within the options provided.";
     }
 }

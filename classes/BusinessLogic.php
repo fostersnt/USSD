@@ -4,14 +4,14 @@ require_once('./classes/Response.php');
 class BusinessLogic
 {
     //METHOD TO HANDLE USER INPUTS
-    public function handleUserInput($input, $screen)
+    public function handleUserInput($input, $current_screen)
     {
         $continue = 'CON';
         $terminate = 'END';
 
         $responseScreens = new Response();
 
-        switch ($screen) {
+        switch ($current_screen) {
             case 1:
                 switch ($input) {
                     case 1:
