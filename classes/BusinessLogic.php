@@ -1,5 +1,6 @@
 <?php
 require_once('./classes/Response.php');
+require_once('./classes/Validation.php');
 
 class BusinessLogic
 {
@@ -22,6 +23,7 @@ class BusinessLogic
         $terminate = 'END';
 
         $responseScreens = new Response();
+        $validation = new Validation();
 
         switch ($screen) {
             case 1:
@@ -53,7 +55,7 @@ class BusinessLogic
                     case 2:
                         return [
                             'response' => $responseScreens->accountInfoScreen($terminate),
-                            'screen' => 1,
+                            'screen' => $screen,
                             'status' => 'success',
                             'destroy_session' => true,
                             'input' => $input
@@ -66,21 +68,32 @@ class BusinessLogic
             case 3:
                 switch ($input) {
                     case 1:
-                        return $responseScreens->individualRegistrationScreen_Name($continue);
+                        return [
+                            'response' => $responseScreens->individualRegistrationScreen_Name($continue),
+                            'screen' => $screen,
+                            'status' => 'success',
+                            'destroy_session' => false,
+                            'input' => $input
+                        ];
                         break;
-
                     default:
                         return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
                         break;
                 }
-            case 3:
-                switch ($input) {
-                    case 1:
-                        echo $responseScreens->welcomeScreen('CON');
+            case 4:
+                switch (true) {
+                    case $validation->validateName($input):
+                        return [
+                            'response' => "Your name has successfully been taken",
+                            'screen' => $screen,
+                            'status' => 'success',
+                            'destroy_session' => false,
+                            'input' => $input
+                        ];
                         break;
 
                     default:
-                        return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
+                        return BusinessLogic::error_feedback($terminate, $screen, 'caty', $responseScreens);
                         break;
                 }
             default:

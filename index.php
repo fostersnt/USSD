@@ -33,6 +33,8 @@ try {
     // $_SESSION['current_screen'] = $newScreen + 1;
     echo 'RESPONSE: ' . $data['response'] . '<br>USER INPUT: ' .
         $data['input'] . '<br>CURRENT SCREEN: ' . $_SESSION['screen'];
+    // $val = new Validation();
+    // echo $val->validateName("Foster Amponsah Asante");
 } catch (\Throwable $th) {
     echo '<span style="color: red;">' . $th->getMessage() . ' LINE NUMBER: ' . $th->getLine() . '</span>';
 }
