@@ -21,23 +21,32 @@ try {
 
     function handleUserInput($userInput, $currentScreen)
     {
+        switch ($currentScreen) {
+            case 'value':
+                # code...
+                break;
+
+            default:
+                # code...
+                break;
+        }
     }
 
-    switch ($code) {
-        case '123':
-            echo printName("Foster Amponsah Asante");
-            break;
-        case '419':
-            // echo $app_secrets["rapidAPI"]['X-RapidAPI-Key'];
-            echo $responseScreens->welcomeScreen('CON');
-            break;
-        case '41':
-            echo $accounts_page_1;
-            break;
-        default:
-            echo "Your input couldn't match any item";
-            break;
-    }
+    // switch ($code) {
+    //     case '123':
+    //         echo printName("Foster Amponsah Asante");
+    //         break;
+    //     case '419':
+    //         // echo $app_secrets["rapidAPI"]['X-RapidAPI-Key'];
+    //         echo $responseScreens->welcomeScreen('CON');
+    //         break;
+    //     case '41':
+    //         echo $accounts_page_1;
+    //         break;
+    //     default:
+    //         echo "Your input couldn't match any item";
+    //         break;
+    // }
 } catch (\Throwable $th) {
     echo '<span style="color: red;">' . $th->getMessage() . '</span>';
 }
