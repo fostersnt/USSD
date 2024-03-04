@@ -1,5 +1,6 @@
 <?php
-class Database {
+class Database
+{
     private $host = "localhost";
     private $username = "root";
     private $password = "";
@@ -7,7 +8,8 @@ class Database {
 
     public $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->conn = new mysqli($this->host, $this->username, $this->password);
 
         if ($this->conn->connect_error) {
@@ -16,19 +18,22 @@ class Database {
 
         $this->createDatabase();
         $this->selectDatabase();
-        $this->createTable();
+        $this->createUsersTable();
     }
 
-    private function createDatabase() {
+    private function createDatabase()
+    {
         $query = "CREATE DATABASE IF NOT EXISTS " . $this->database;
         $this->conn->query($query);
     }
 
-    private function selectDatabase() {
+    private function selectDatabase()
+    {
         $this->conn->select_db($this->database);
     }
 
-    private function createTable() {
+    private function createUsersTable()
+    {
         $query = "CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(255) NOT NULL,
@@ -37,8 +42,8 @@ class Database {
         $this->conn->query($query);
     }
 
-    public function closeConnection() {
+    public function closeConnection()
+    {
         $this->conn->close();
     }
 }
-?>
