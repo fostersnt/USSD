@@ -1,9 +1,9 @@
 <?php
 // include('./functions.php');
-// include('./secrets.php');
-include('./menu/account_check.php');
-include('./menu/account_register.php');
-include('./api_calls/rapid_api.php');
+require_once('./classes/Response.php');
+require_once('./menu/account_check.php');
+require_once('./menu/account_register.php');
+require_once('./api_calls/rapid_api.php');
 
 try {
     //GETTING THE REQUIRED DATA
@@ -11,6 +11,8 @@ try {
     $currentPage = $_GET['currentPage'] ?? null;
     $userInput = $_GET['userInput'] ?? null;
     $session_id = $_GET['session_id'] ?? null;
+
+    $responseScreens = new Response();
 
     // $app_secrets = getSecrets();
     $accounts_page_1 = page_1();
@@ -23,7 +25,7 @@ try {
             break;
         case '419':
             // echo $app_secrets["rapidAPI"]['X-RapidAPI-Key'];
-            echo $msisdn;
+            echo $responseScreens->welcomeScreen('CON');
             break;
         case '41':
             echo $accounts_page_1;
