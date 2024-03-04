@@ -11,6 +11,7 @@ try {
     $userInput = $_GET['text'] ?? 0;
     $session_id = $_GET['session_id'] ?? null;
     $businessLogic = new BusinessLogic();
+    $validation = new Validation();
 
     if (isset($currentScreen)) {
         $_SESSION['screen'] = $currentScreen;
@@ -20,7 +21,8 @@ try {
     }
 
     $data = $businessLogic->handleUserInput($userInput, $currentScreen);
-    echo json_encode($data);
+    // echo json_encode($data);
+    echo $validation->validateAge(23);
     echo '<br>';
     if ($data['status'] == 'success') {
         $_SESSION['screen'] = $data['screen'] + 1;

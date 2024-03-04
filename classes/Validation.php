@@ -3,7 +3,8 @@ class Validation
 {
     public function validateAge($age)
     {
-        $check = is_int($age) && $age > 18 && $age < 100;
+        $value = intval($age);
+        $check = $value > 18 && $value < 100;
         return $check;
     }
 

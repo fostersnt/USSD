@@ -6,25 +6,13 @@ require_once('./menu/users/AccountInfo.php');
 
 class BusinessLogic
 {
-    //METHOD TO RETURN ERROR FEEDBACK
-    public static function error_feedback(string $action, int $screen, $input, Commons $response)
-    {
-        return [
-            'response' => $response->invalidInput($action),
-            'screen' => $screen,
-            'status' => 'failed',
-            'destroy_session' => true,
-            'input' => $input
-        ];
-    }
-
     //METHOD TO HANDLE USER INPUTS
     public function handleUserInput($input = 0, $screen = 1)
     {
         $continue = 'CON';
         $terminate = 'END';
 
-        $responseScreens = new Commons();
+        $commons = new Commons();
         $userRegistration = new UserRegistration();
         $accountInfo = new AccountInfo();
         $validation = new Validation();
@@ -34,7 +22,7 @@ class BusinessLogic
                 switch ($input) {
                     case 0:
                         return [
-                            'response' => $responseScreens->welcomeScreen($continue),
+                            'response' => $commons->welcomeScreen($continue),
                             'screen' => $screen,
                             'status' => 'success',
                             'destroy_session' => false,
@@ -42,7 +30,7 @@ class BusinessLogic
                         ];
                         break;
                     default:
-                        return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
+                        return $commons->invalidInput($terminate, $screen, $input);
                         break;
                 }
             case 2:
@@ -66,7 +54,7 @@ class BusinessLogic
                         ];
                         break;
                     default:
-                        return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
+                        return $commons->invalidInput($terminate, $screen, $input);
                         break;
                 }
             case 3:
@@ -81,14 +69,15 @@ class BusinessLogic
                         ];
                         break;
                     default:
-                        return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
+                        return $commons->invalidInput($terminate, $screen, $input);
                         break;
                 }
             case 4:
                 switch (true) {
                     case $validation->validateName($input):
+                        $_SESSION['USERNAME'] = $input;
                         return [
-                            'response' => "Your name has successfully been taken",
+                            'response' => $userRegistration->individualRegistrationScreen_Age($input),
                             'screen' => $screen,
                             'status' => 'success',
                             'destroy_session' => false,
@@ -97,11 +86,22 @@ class BusinessLogic
                         break;
 
                     default:
-                        return BusinessLogic::error_feedback($terminate, $screen, 'caty', $responseScreens);
+                        return $commons->invalidInput($terminate, $screen, $input, "Invalid user name");
+                        break;
+                }
+            case 5:
+                switch (true) {
+                    case $validation->validateAge($input):
+                        $_SESSION['USERAGE'] = $input;
+                        return $commons->successMessage($terminate, $screen, $input, "User registered successfully");
+                        break;
+
+                    default:
+                        return $commons->invalidInput($terminate, $screen, $input, "Invalid Age");
                         break;
                 }
             default:
-                return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
+                return $commons->invalidInput($terminate, $screen, $input, "Error occurred");
                 break;
         }
     }

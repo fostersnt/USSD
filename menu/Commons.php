@@ -10,10 +10,25 @@ class Commons
         2. View Account Details";
     }
 
-
-
-    public function invalidInput($action)
+    public function successMessage(string $action, int $screen, $input, $message)
     {
-        return "$action Invalid input provided.";
+        return [
+            'response' => "$action $message",
+            'screen' => $screen,
+            'status' => 'failed',
+            'destroy_session' => true,
+            'input' => $input
+        ];
+    }
+
+    public function invalidInput(string $action, int $screen, $input, $message = "Imvalid input")
+    {
+        return [
+            'response' => "$action $message",
+            'screen' => $screen,
+            'status' => 'failed',
+            'destroy_session' => true,
+            'input' => $input
+        ];
     }
 }
