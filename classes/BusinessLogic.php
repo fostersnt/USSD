@@ -1,11 +1,13 @@
 <?php
-require_once('./classes/Response.php');
+require_once('./menu/Commons.php');
 require_once('./classes/Validation.php');
+require_once('./menu/users/UserRegistration.php');
+require_once('./menu/users/AccountInfo.php');
 
 class BusinessLogic
 {
     //METHOD TO RETURN ERROR FEEDBACK
-    public static function error_feedback(string $action, int $screen, $input, Response $response)
+    public static function error_feedback(string $action, int $screen, $input, Commons $response)
     {
         return [
             'response' => $response->invalidInput($action),
@@ -22,7 +24,9 @@ class BusinessLogic
         $continue = 'CON';
         $terminate = 'END';
 
-        $responseScreens = new Response();
+        $responseScreens = new Commons();
+        $userRegistration = new UserRegistration();
+        $accountInfo = new AccountInfo();
         $validation = new Validation();
 
         switch ($screen) {
@@ -45,7 +49,7 @@ class BusinessLogic
                 switch ($input) {
                     case 1:
                         return [
-                            'response' => $responseScreens->userRegistrationScreen($continue),
+                            'response' => $userRegistration->userRegistrationScreen($continue),
                             'screen' => $screen,
                             'status' => 'success',
                             'destroy_session' => false,
@@ -54,7 +58,7 @@ class BusinessLogic
                         break;
                     case 2:
                         return [
-                            'response' => $responseScreens->accountInfoScreen($terminate),
+                            'response' => $accountInfo->accountInfoScreen($terminate),
                             'screen' => $screen,
                             'status' => 'success',
                             'destroy_session' => true,
@@ -69,7 +73,7 @@ class BusinessLogic
                 switch ($input) {
                     case 1:
                         return [
-                            'response' => $responseScreens->individualRegistrationScreen_Name($continue),
+                            'response' => $userRegistration->individualRegistrationScreen_Name($continue),
                             'screen' => $screen,
                             'status' => 'success',
                             'destroy_session' => false,

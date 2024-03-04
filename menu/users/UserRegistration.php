@@ -1,15 +1,7 @@
 <?php
 
-class Response
+class UserRegistration
 {
-    public function welcomeScreen($action)
-    {
-        $action = strtoupper($action);
-        return "$action Welcom to GWO SEVO USSD,\nSelect an option to proceed\n
-        1. User Registration\n
-        2. View Account Details";
-    }
-
     //USER REGISTRATION
     public function userRegistrationScreen($action)
     {
@@ -41,19 +33,5 @@ class Response
     {
         $action = strtoupper($action);
         return "$action Enter group average age:";
-    }
-
-    //ACCOUNT DETAILS INFO
-    public function accountInfoScreen($action)
-    {
-        $action = strtoupper($action);
-        return "$action Dear user, your account info is given below:\n
-        Name: John\n
-        DoB: 1998-03-21";
-    }
-
-    public function invalidInput($action)
-    {
-        return "$action Invalid input provided.";
     }
 }

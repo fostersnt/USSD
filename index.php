@@ -1,15 +1,14 @@
 <?php
-// session_start();
+session_start();
 require_once('./classes/BusinessLogic.php');
 require_once('./classes/Validation.php');
-require_once('./menu/account_check.php');
-require_once('./menu/account_register.php');
 
 try {
     //GETTING THE REQUIRED DATA
+    // $_SESSION['screen'] = 1;
     $msisdn = $_GET['msisdn'] ?? 1;
     $currentScreen = $_SESSION['screen'] ?? 1;
-    $userInput = $_GET['text'] ?? null;
+    $userInput = $_GET['text'] ?? 0;
     $session_id = $_GET['session_id'] ?? null;
     $businessLogic = new BusinessLogic();
 
@@ -21,7 +20,8 @@ try {
     }
 
     $data = $businessLogic->handleUserInput($userInput, $currentScreen);
-
+    echo json_encode($data);
+    echo '<br>';
     if ($data['status'] == 'success') {
         $_SESSION['screen'] = $data['screen'] + 1;
     };
