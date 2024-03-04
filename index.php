@@ -22,16 +22,17 @@ try {
 
     $accounts_page_1 = page_1();
 
-    function handleUserInput($userInput, $currentScreen)
+    //FUNCTION TO HANDLE USER INPUTS
+    function handleUserInput($input, $screen)
     {
         $continue = 'CON';
         $terminate = 'END';
 
         $responseScreens = new Response();
 
-        switch ($currentScreen) {
+        switch ($screen) {
             case 1:
-                switch ($userInput) {
+                switch ($input) {
                     case 1:
                         echo $responseScreens->welcomeScreen($continue);
                         break;
@@ -41,7 +42,7 @@ try {
                         break;
                 }
             case 2:
-                switch ($userInput) {
+                switch ($input) {
                     case 1:
                         echo $responseScreens->welcomeScreen('CON');
                         break;
@@ -51,7 +52,7 @@ try {
                         break;
                 }
             case 3:
-                switch ($userInput) {
+                switch ($input) {
                     case 1:
                         echo $responseScreens->welcomeScreen('CON');
                         break;
@@ -65,25 +66,6 @@ try {
                 break;
         }
     }
-
-    /*
-    $code = "419";
-    switch ($code) {
-        case '123':
-            echo printName("Foster Amponsah Asante");
-            break;
-        case '419':
-            // echo $app_secrets["rapidAPI"]['X-RapidAPI-Key'];
-            echo $responseScreens->welcomeScreen('CON');
-            break;
-        case '41':
-            echo $accounts_page_1;
-            break;
-        default:
-            echo "Your input couldn't match any item";
-            break;
-    }
-    */
 } catch (\Throwable $th) {
     echo '<span style="color: red;">' . $th->getMessage() . '</span>';
 }
