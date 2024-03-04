@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // include('./functions.php');
 require_once('./classes/BusinessLogic.php');
 require_once('./classes/Validation.php');
@@ -8,14 +10,14 @@ require_once('./api_calls/rapid_api.php');
 
 try {
     //GETTING THE REQUIRED DATA
-    $msisdn = $_GET['msisdn'] ?? '0';
-    $currentScreen = $_GET['screen'] ?? '0';
+    $msisdn = $_GET['msisdn'] ?? 0;
+    $currentScreen = $_SESSION['screen'] ?? 0;
     $userInput = $_GET['text'] ?? null;
     $session_id = $_GET['session_id'] ?? null;
     $businessLogic = new BusinessLogic();
 
     if (isset($currentScreen)) {
-        $_SESSION['current_screen'] = $currentScreen;
+        $_SESSION['screen'] = $currentScreen;
     }
     if (isset($session_id)) {
         $_SESSION['session_id'] = $session_id;
@@ -24,11 +26,11 @@ try {
     $data = $businessLogic->handleUserInput($userInput, $currentScreen);
 
     if ($data['status'] == 'success') {
-        $currentScreen = $data['screen'] + 1;
+        $_SESSION['screen'] = $data['screen'] + 1;
     };
 
     // $_SESSION['current_screen'] = $newScreen + 1;
-    echo $data['response']; // . ' CURRENT SCREEN: ' . $currentScreen;
+    echo $data['response'] . ' CURRENT SCREEN: ' . $_SESSION['screen'];
 } catch (\Throwable $th) {
     echo '<span style="color: red;">' . $th->getMessage() . ' LINE NUMBER: ' . $th->getLine() . '</span>';
 }

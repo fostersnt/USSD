@@ -3,16 +3,19 @@ require_once('./classes/Response.php');
 
 class BusinessLogic
 {
-    public static function error_feedback(string $action, int $screen, Response $response)
+    //METHOD TO RETURN ERROR FEEDBACK
+    public static function error_feedback(string $action, int $screen, $input, Response $response)
     {
         return [
             'response' => $response->invalidInput($action),
             'screen' => $screen,
-            'status' => 'failed'
+            'status' => 'failed',
+            'input' => $input
         ];
     }
+
     //METHOD TO HANDLE USER INPUTS
-    public function handleUserInput($input, $current_screen)
+    public function handleUserInput($input, $screen)
     {
         $continue = 'CON';
         $terminate = 'END';
@@ -21,43 +24,53 @@ class BusinessLogic
 
         switch ($input) {
             case 0:
-                switch ($current_screen) {
+                switch ($screen) {
                     case 0:
                         return [
                             'response' => $responseScreens->welcomeScreen($continue),
-                            'screen' => $current_screen,
-                            'status' => 'success'
+                            'screen' => $screen,
+                            'status' => 'success',
+                            'input' => $input
                         ];
                         break;
                     default:
-                        return BusinessLogic::error_feedback($terminate, $current_screen, $responseScreens);
+                        return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
                         break;
                 }
             case 1:
-                switch ($current_screen) {
+                switch ($screen) {
                     case 1:
                         return [
                             'response' => $responseScreens->userRegistrationScreen($continue),
-                            'screen' => $current_screen,
-                            'status' => 'success'
+                            'screen' => $screen,
+                            'status' => 'success',
+                            'input' => $input
+                        ];
+                        break;
+                    case 2:
+                        return [
+                            'response' => $responseScreens->userRegistrationScreen($continue),
+                            'screen' => $screen,
+                            'status' => 'success',
+                            'input' => $input
                         ];
                         break;
                     default:
-                        return BusinessLogic::error_feedback($terminate, $current_screen, $responseScreens);
+                        return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
                         break;
                 }
             case 2:
-                switch ($current_screen) {
+                switch ($screen) {
                     case 1:
                         return $responseScreens->welcomeScreen('CON');
                         break;
 
                     default:
-                        return BusinessLogic::error_feedback($terminate, $current_screen, $responseScreens);
+                        return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
                         break;
                 }
             case 3:
-                switch ($current_screen) {
+                switch ($screen) {
                     case 1:
                         echo $responseScreens->welcomeScreen('CON');
                         break;
@@ -67,7 +80,7 @@ class BusinessLogic
                         break;
                 }
             default:
-                return BusinessLogic::error_feedback($terminate, $current_screen, $responseScreens);
+                return BusinessLogic::error_feedback($terminate, $screen, $input, $responseScreens);
                 break;
         }
     }
