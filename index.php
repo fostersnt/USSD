@@ -20,8 +20,6 @@ try {
         $_SESSION['session_id'] = $session_id;
     }
 
-    $accounts_page_1 = page_1();
-
     //FUNCTION TO HANDLE USER INPUTS
     function handleUserInput($input, $screen)
     {
