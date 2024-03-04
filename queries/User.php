@@ -10,6 +10,7 @@ class User extends Database
         $stmt->bind_param("ss", $username, $hashedPassword);
         $stmt->execute();
         $stmt->close();
+        return true;
     }
 
     //Function to delete user
@@ -19,6 +20,7 @@ class User extends Database
         $stmt->bind_param("i", $userId);
         $stmt->execute();
         $stmt->close();
+        return true;
     }
 
     //Function to update user
@@ -29,5 +31,18 @@ class User extends Database
         $stmt->bind_param("ssi", $newUsername, $hashedPassword, $userId);
         $stmt->execute();
         $stmt->close();
+        return true;
+    }
+
+    public function getUserRecord($username)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $userRecord = $result->fetch_assoc();
+        $stmt->close();
+
+        return $userRecord;
     }
 }
