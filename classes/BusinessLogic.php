@@ -25,7 +25,7 @@ class BusinessLogic
             case 2:
                 switch ($input) {
                     case 1:
-                        echo $responseScreens->welcomeScreen('CON');
+                        return $responseScreens->welcomeScreen('CON');
                         break;
 
                     default:
@@ -43,7 +43,7 @@ class BusinessLogic
                         break;
                 }
             default:
-                # code...
+                return $responseScreens->invalidInput($terminate);
                 break;
         }
     }
