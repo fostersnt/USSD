@@ -18,9 +18,15 @@ class Response
         2. Group registration";
     }
 
-    public function individualRegistrationScreen($action)
+    public function individualRegistrationScreen_Name($action)
     {
         $action = strtoupper($action);
         return "$action Enter your name:";
+    }
+
+    public function individualRegistrationScreen_Age($action)
+    {
+        $action = strtoupper($action);
+        return "$action Enter your age:";
     }
 }

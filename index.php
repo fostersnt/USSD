@@ -1,6 +1,7 @@
 <?php
 // include('./functions.php');
 require_once('./classes/Response.php');
+require_once('./classes/Validation.php');
 require_once('./menu/account_check.php');
 require_once('./menu/account_register.php');
 require_once('./api_calls/rapid_api.php');
@@ -8,16 +9,19 @@ require_once('./api_calls/rapid_api.php');
 try {
     //GETTING THE REQUIRED DATA
     $msisdn = $_GET['msisdn'] ?? null;
-    $currentPage = $_GET['currentPage'] ?? null;
-    $userInput = $_GET['userInput'] ?? null;
+    $currentScreen = $_GET['current_screen'] ?? null;
+    $userInput = $_GET['text'] ?? null;
     $session_id = $_GET['session_id'] ?? null;
 
     $responseScreens = new Response();
 
-    // $app_secrets = getSecrets();
     $accounts_page_1 = page_1();
 
     $code = "419";
+
+    function handleUserInput($userInput, $currentScreen)
+    {
+    }
 
     switch ($code) {
         case '123':
