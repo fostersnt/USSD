@@ -1,12 +1,9 @@
 <?php
-session_start();
-
-// include('./functions.php');
+// session_start();
 require_once('./classes/BusinessLogic.php');
 require_once('./classes/Validation.php');
 require_once('./menu/account_check.php');
 require_once('./menu/account_register.php');
-require_once('./api_calls/rapid_api.php');
 
 try {
     //GETTING THE REQUIRED DATA
