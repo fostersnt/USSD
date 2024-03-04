@@ -37,4 +37,8 @@ try {
     echo '<span style="color: red;">' . $th->getMessage() . ' LINE NUMBER: ' . $th->getLine() . '</span>';
 }
 
+if ($data['destroy_session']) {
+    session_destroy();
+}
+
 // session_destroy();

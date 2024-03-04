@@ -10,6 +10,7 @@ class BusinessLogic
             'response' => $response->invalidInput($action),
             'screen' => $screen,
             'status' => 'failed',
+            'destroy_session' => true,
             'input' => $input
         ];
     }
@@ -30,6 +31,7 @@ class BusinessLogic
                             'response' => $responseScreens->welcomeScreen($continue),
                             'screen' => $screen,
                             'status' => 'success',
+                            'destroy_session' => false,
                             'input' => $input,
                         ];
                         break;
@@ -44,6 +46,7 @@ class BusinessLogic
                             'response' => $responseScreens->userRegistrationScreen($continue),
                             'screen' => $screen,
                             'status' => 'success',
+                            'destroy_session' => false,
                             'input' => $input
                         ];
                         break;
@@ -52,6 +55,7 @@ class BusinessLogic
                             'response' => $responseScreens->accountInfoScreen($terminate),
                             'screen' => 1,
                             'status' => 'success',
+                            'destroy_session' => true,
                             'input' => $input
                         ];
                         break;
