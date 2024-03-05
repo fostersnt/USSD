@@ -8,7 +8,7 @@ class User extends Database
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $this->conn->prepare("INSERT INTO users (username, password, pin) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $hashedPassword);
+        $stmt->bind_param("sss", $username, $hashedPassword, $pin);
         $stmt->execute();
         $stmt->close();
         return true;
