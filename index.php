@@ -10,45 +10,23 @@ require_once('./menu/users/AccountInfo.php');
 require_once('./queries/User.php');
 
 try {
-    //GETTING THE REQUIRED DATA
-    $currentScreen = $_SESSION['screen'] ?? 1;
-    $userInput = $_GET['text'] ?? 0;
-    $mainScreen = $_SESSION['main_screen'] ?? 1;
+    $text = $_GET['text'];
+    $current_page = $_SESSION['current_screen'] = null;
 
-    //INSTANTIATION
-    $businessLogic = new BusinessLogic();
-    $validation = new Validation();
-
-    if (isset($currentScreen)) {
-        $_SESSION['screen'] = $currentScreen;
-    }
-    if (isset($session_id)) {
-        $_SESSION['session_id'] = $session_id;
-    }
-
-    $data = $businessLogic->handleUserInput($userInput, $currentScreen);
-    // echo json_encode($data);
-    echo $validation->validateAge(23);
-    echo '<br>';
-    // if ($data['status'] == 'success') {
-    $_SESSION['screen'] = $data['screen'] + 1;
-    // };
-    if ($_SESSION['screen'] == 6) {
-        //CREATING NEW USER RECORD
-        $name = $_SESSION['USER_NAME'] ?? null;
-        $pin = $_SESSION['USER_PIN'] ?? null;
-        if (isset($name) && isset($pin)) {
-            $user = new User();
-            $user->register($name, password_hash($pin, PASSWORD_DEFAULT), $pin);
-            echo 'RESPONSE: ' . $data['response'] . '<br>USER NAME: ' .
-                $_SESSION['USER_NAME'] . '<br>USER PIN: ' . $_SESSION['USER_PIN'];
-        } else {
-            echo 'RESPONSE: <span style="color:red;">Failed to save user details</span>' . '<br>USER INPUT: ' .
-                $data['input'] . '<br>CURRENT SCREEN: ' . $_SESSION['screen'];
+    if ($current_page) {
+        switch ($selectedOption) {
+            case 1:
+                $_SESSION['current_screen'] = 'user_registration';
+                // Display the second screen options for User Registration
+                // Provide options for Individual and Group registration
+                break;
+            case 2:
+                // User selected User Account Info
+                // Implement logic for User Account Info
+                break;
+            default:
+                // Handle other cases or invalid input
         }
-    } else {
-        echo 'RESPONSE: ' . $data['response'] . '<br>USER INPUT: ' .
-            $data['input'] . '<br>CURRENT SCREEN: ' . $_SESSION['screen'];
     }
 } catch (\Throwable $th) {
     echo '<span style="color: red;">' . $th->getMessage() . ' LINE NUMBER: ' . $th->getLine() . '</span>';

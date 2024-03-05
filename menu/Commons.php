@@ -21,7 +21,7 @@ class Commons
         ];
     }
 
-    public function invalidInput(string $action, int $screen, $input, $message = "Imvalid input")
+    public function invalidInput(string $action, int $screen, $input, $message = "Invalid input")
     {
         return [
             'response' => "$action $message",
