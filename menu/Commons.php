@@ -10,25 +10,8 @@ class Commons
         2. View Account Details";
     }
 
-    public function successMessage(string $action, int $screen, $input, $message)
+    public function generalResponse(string $action, $message)
     {
-        return [
-            'response' => "$action $message",
-            'screen' => $screen,
-            'status' => 'failed',
-            'destroy_session' => true,
-            'input' => $input
-        ];
-    }
-
-    public function invalidInput(string $action, int $screen, $input, $message = "Invalid input")
-    {
-        return [
-            'response' => "$action $message",
-            'screen' => $screen,
-            'status' => 'failed',
-            'destroy_session' => true,
-            'input' => $input
-        ];
+        return "$action $message";
     }
 }
