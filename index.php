@@ -1,7 +1,12 @@
 <?php
 session_start();
-require_once('./classes/BusinessLogic.php');
-require_once('./classes/Validation.php');
+
+require_once('./business_logic/BusinessLogic.php');
+require_once('./validation/Validation.php');
+require_once('./menu/Commons.php');
+require_once('./validation/Validation.php');
+require_once('./menu/users/UserRegistration.php');
+require_once('./menu/users/AccountInfo.php');
 
 try {
     //GETTING THE REQUIRED DATA

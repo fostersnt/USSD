@@ -1,9 +1,4 @@
 <?php
-require_once('./menu/Commons.php');
-require_once('./classes/Validation.php');
-require_once('./menu/users/UserRegistration.php');
-require_once('./menu/users/AccountInfo.php');
-
 class BusinessLogic
 {
     //METHOD TO HANDLE USER INPUTS
