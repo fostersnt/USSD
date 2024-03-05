@@ -7,6 +7,7 @@ require_once('./menu/Commons.php');
 require_once('./validation/Validation.php');
 require_once('./menu/users/UserRegistration.php');
 require_once('./menu/users/AccountInfo.php');
+require_once('./queries/User.php');
 
 try {
     //GETTING THE REQUIRED DATA
@@ -32,8 +33,18 @@ try {
     $_SESSION['screen'] = $data['screen'] + 1;
     // };
     if ($_SESSION['screen'] == 6) {
-        echo 'RESPONSE: ' . $data['response'] . '<br>USER NAME: ' .
-            $_SESSION['USER_NAME'] . '<br>USER AGE: ' . $_SESSION['USER_AGE'];
+        //CREATING NEW USER RECORD
+        $name = $_SESSION['USER_NAME'] ?? null;
+        $pin = $_SESSION['USER_PIN'] ?? null;
+        if (isset($name) && isset($pin)) {
+            $user = new User();
+            $user->register($name, password_hash($pin, PASSWORD_DEFAULT), $pin);
+            echo 'RESPONSE: ' . $data['response'] . '<br>USER NAME: ' .
+                $_SESSION['USER_NAME'] . '<br>USER PIN: ' . $_SESSION['USER_PIN'];
+        } else {
+            echo 'RESPONSE: <span style="color:red;">Failed to save user details</span>' . '<br>USER INPUT: ' .
+                $data['input'] . '<br>CURRENT SCREEN: ' . $_SESSION['screen'];
+        }
     } else {
         echo 'RESPONSE: ' . $data['response'] . '<br>USER INPUT: ' .
             $data['input'] . '<br>CURRENT SCREEN: ' . $_SESSION['screen'];

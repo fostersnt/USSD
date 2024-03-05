@@ -89,7 +89,7 @@ class BusinessLogic
             case 5:
                 switch (true) {
                     case $validation->validateAge($input):
-                        $_SESSION['USER_AGE'] = $input;
+                        $_SESSION['USER_PIN'] = $input;
                         return $commons->successMessage($terminate, $screen, $input, "User registered successfully");
                         break;
 

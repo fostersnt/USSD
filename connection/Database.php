@@ -3,8 +3,8 @@ class Database
 {
     private $host = "localhost";
     private $username = "root";
-    private $password = "";
-    private $database = "ussd_db";
+    private $password = "foster@419.com";
+    private $database = "USSD";
 
     public $conn;
 
@@ -37,7 +37,8 @@ class Database
         $query = "CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(255) NOT NULL,
-            password VARCHAR(255) NOT NULL
+            password VARCHAR(255) NOT NULL,
+            pin VARCHAR(255) NULL
         )";
         $this->conn->query($query);
     }
