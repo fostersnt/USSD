@@ -9,6 +9,8 @@ class BusinessLogic
     //METHOD TO HANDLE USER INPUTS
     public function handleUserInput($input = 0, $screen = 1)
     {
+        // session_start();
+
         $continue = 'CON';
         $terminate = 'END';
 
@@ -75,9 +77,9 @@ class BusinessLogic
             case 4:
                 switch (true) {
                     case $validation->validateName($input):
-                        $_SESSION['USERNAME'] = $input;
+                        $_SESSION['USER_NAME'] = $input;
                         return [
-                            'response' => $userRegistration->individualRegistrationScreen_Age($input),
+                            'response' => $userRegistration->individualRegistrationScreen_Age($continue),
                             'screen' => $screen,
                             'status' => 'success',
                             'destroy_session' => false,
@@ -92,7 +94,7 @@ class BusinessLogic
             case 5:
                 switch (true) {
                     case $validation->validateAge($input):
-                        $_SESSION['USERAGE'] = $input;
+                        $_SESSION['USER_AGE'] = $input;
                         return $commons->successMessage($terminate, $screen, $input, "User registered successfully");
                         break;
 
