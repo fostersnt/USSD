@@ -1,7 +1,8 @@
 <?php
+require_once('./connection/Database.php');
+
 class User extends Database
 {
-
     //Function to create user
     public function register($username, $password)
     {
