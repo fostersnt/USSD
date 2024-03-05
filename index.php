@@ -11,10 +11,11 @@ require_once('./queries/User.php');
 
 try {
     //GETTING THE REQUIRED DATA
-    $msisdn = $_GET['msisdn'] ?? 1;
     $currentScreen = $_SESSION['screen'] ?? 1;
     $userInput = $_GET['text'] ?? 0;
-    $session_id = $_GET['session_id'] ?? null;
+    $mainScreen = $_SESSION['main_screen'] ?? 1;
+
+    //INSTANTIATION
     $businessLogic = new BusinessLogic();
     $validation = new Validation();
 
