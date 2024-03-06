@@ -29,7 +29,9 @@ try {
     elseif ($_SESSION['current_screen'] == 1 && $text == "1") {
         $message_response = $userRegistration->userRegistrationScreen($continue);
         $_SESSION['current_screen'] = 2;
-    }elseif ($_SESSION['current_screen'] == 2 && $text == "1") {
+    }
+    //INDIVIDUAL REGISTRATION BEGINS HERE
+    elseif ($_SESSION['current_screen'] == 2 && $text == "1") {
         $message_response = $userRegistration->individualRegistrationScreen_Name($continue);
         $_SESSION['current_screen'] = 3;
         $_SESSION['key'] = "user_name";
@@ -45,6 +47,7 @@ try {
         $message_response = "$terminate Individual registration completed";
         $_SESSION['current_screen'] = 4;
     }
+    //GROUP REGISTRATION BEGINS HERE
 } catch (\Throwable $th) {
     $message_response = "END UNKNWON ERROR";
 }
