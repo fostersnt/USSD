@@ -17,7 +17,7 @@ class UserRegistration
         return "$action Enter your name:";
     }
 
-    public function individualRegistrationScreen_Age($action)
+    public function individualRegistrationScreen_Pin($action)
     {
         $action = strtoupper($action);
         return "$action Enter your age:";

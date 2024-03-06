@@ -1,7 +1,8 @@
 <?php
 session_start();
+// session_destroy();
 
-require_once('./business_logic/BusinessLogic.php');
+// require_once('./business_logic/BusinessLogic.php');
 require_once('./validation/Validation.php');
 require_once('./menu/Commons.php');
 require_once('./validation/Validation.php');
@@ -11,8 +12,6 @@ require_once('./queries/User.php');
 
 try {
     $text = $_GET['text'] ?? null;
-    $_SESSION['current_screen'] = null;
-
     $continue = 'CON';
     $terminate = 'END';
 
@@ -20,59 +19,40 @@ try {
     $commons = new Commons();
     $userRegistration = new UserRegistration();
     $accountInfo = new AccountInfo();
-    $screens = [
-        'user_registration',
-        'individual_registration',
-        'user_name',
-        'user_pin',
-        'group_registration',
-        'account_info'
-    ];
 
     $message_response = '';
 
-    if ($_SESSION['current_screen'] == null) {
-        switch ($text) {
-            case null:
-                $message_response = $commons->welcomeScreen($continue);
-                break;
-            case 1:
-                $_SESSION['current_screen'] = $screens[0];
-                $message_response = $userRegistration->userRegistrationScreen($continue);
-                break;
-            case 2:
-                $_SESSION['current_screen'] = $screens[5];
-                $message_response = $accountInfo->accountInfoScreen($terminate);
-                break;
-            default:
-                $message_response = $commons->generalResponse($terminate, "Invalid input");
-        }
-        // echo $message_response;
-        // echo '<br>CURRENT SCREEN: ' . $_SESSION['current_screen'] . "<br>USER INPUT: " . $text . "<br>";
+    if ($text == null) {
+        $_SESSION['current_screen'] = 1;
+        $message_response = $commons->welcomeScreen($continue);
     }
-    if ($_SESSION['current_screen'] == $screens[0]) {
-        switch ($text) {
-            case 1:
-                $_SESSION['current_screen'] = $screens[1];
-                $message_response = $userRegistration->userRegistrationScreen($continue);
-                break;
-            case 2:
-                $_SESSION['current_screen'] = $screens[1];
-                $message_response = $userRegistration->individualRegistrationScreen_Name($continue);
-                break;
-            default:
-                $message_response = $commons->generalResponse($terminate, "Invalid input");
-                break;
-        }
-        // echo $message_response;
-        // echo '<br>CURRENT SCREEN: ' . $_SESSION['current_screen'] . "<br>USER INPUT: " . $text . "<br>";
+    elseif ($_SESSION['current_screen'] == 1 && $text == "1") {
+        $message_response = $userRegistration->userRegistrationScreen($continue);
+        $_SESSION['current_screen'] = 2;
+    }elseif ($_SESSION['current_screen'] == 2 && $text == "1") {
+        $message_response = $userRegistration->individualRegistrationScreen_Name($continue);
+        $_SESSION['current_screen'] = 3;
+        $_SESSION['key'] = "user_name";
     }
-    echo $message_response;
-    echo '<br>CURRENT SCREEN: ' . $_SESSION['current_screen'] . "<br>USER INPUT: " . $text . "<br>";
+    elseif ($_SESSION['current_screen'] == 3 && $_SESSION['key'] == "user_name") {
+        $_SESSION['name'] = $text;
+        $_SESSION['key'] = "user_pin";
+        $message_response = $userRegistration->individualRegistrationScreen_Pin($terminate);
+        $_SESSION['current_screen'] = 4;
+    }
+    elseif ($_SESSION['current_screen'] == 4 && $_SESSION['key'] == "user_pin") {
+        $_SESSION['pin'] = $text;
+        $message_response = "$terminate Individual registration completed";
+        $_SESSION['current_screen'] = 4;
+    }
 } catch (\Throwable $th) {
-    // echo '<span style="color: red;">' . $th->getMessage() . ' LINE NUMBER: ' . $th->getLine() . '</span>';
+    $message_response = "END UNKNWON ERROR";
 }
 
-if ('vv') {
-    session_destroy();
-}
+header('Content-type: text/plain');
+
+echo $message_response;
+echo "\nCURRENT SCREEN: " . $_SESSION['current_screen'] . "\nUSER INPUT: " . $text;
+
+// After session_start(), add debugging statements
+echo "\n\nDEBUG: " . print_r($_SESSION, true) . "\n";
